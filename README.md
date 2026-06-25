@@ -510,3 +510,12 @@ Three different architectures were implemented:
 
 The final solution successfully integrates data warehousing, data processing, dashboard visualization, and predictive analytics into a single platform.
 
+---
+
+## Author
+
+REN SHINENG
+
+STQD6324 Data Management
+
+Semester 2 2025/2026
