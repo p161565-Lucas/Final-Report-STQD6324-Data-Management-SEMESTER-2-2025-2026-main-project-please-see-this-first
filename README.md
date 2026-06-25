@@ -308,48 +308,56 @@ Displays:
 ## Executive Summary
 
 Automatically generates business insights based on selected filters.
+![Task 1](screenshots/summary.png)
 
 ---
 
 ## Booking Trend Analysis
 
 Interactive daily booking trend visualization.
+![Task 2](screenshots/booking.png)
 
 ---
 
 ## Revenue Analysis
 
 Revenue comparison by vehicle type.
+![Task 3](screenshots/revenue.png)
 
 ---
 
 ## Payment Distribution
 
 Analysis of payment method usage.
+![Task 4](screenshots/payment.png)
 
 ---
 
 ## Cancellation Analysis
 
 Booking cancellation monitoring.
+![Task 5](screenshots/cancellation.png)
 
 ---
 
 ## Rating Distribution
 
 Customer rating histogram.
+![Task 6](screenshots/rating.png)
 
 ---
 
 ## Price Adjustment Simulation
 
 Interactive simulation that estimates revenue impact after changing booking prices.
+![Task 7](screenshots/adjustment.png)
 
 ---
 
 ## Cancellation Risk Prediction
 
 A Logistic Regression model is used to estimate cancellation probability.
+![Task 8](screenshots/risk.png)
 
 Predictors include:
 
@@ -426,43 +434,43 @@ runApp()
 
 ## Dashboard Homepage
 
-Insert screenshot here.
+![Task 9](screenshots/homepage.png)
 
 ---
 
 ## HDFS Upload
 
-Insert screenshot here.
+![Task 10](screenshots/hdfs.png)
 
 ---
 
 ## Hive Table Creation
 
-Insert screenshot here.
+![Task 11](screenshots/hive_table_create.png)
 
 ---
 
 ## Hive Query Result
 
-Insert screenshot here.
+![Task 12](screenshots/hive_result.png)
 
 ---
 
 ## WinSCP Export
 
-Insert screenshot here.
+![Task 13](screenshots/winSCP.png)
 
 ---
 
 ## ODBC Connection
 
-Insert screenshot here.
+![Task 14](screenshots/ODBC.png)
 
 ---
 
-## Cancellation Prediction
+## Cancellation Model
 
-Insert screenshot here.
+![Task 15](screenshots/cancellation_model.png)
 
 ---
 
