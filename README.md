@@ -10,6 +10,27 @@ The project demonstrates multiple data management architectures and business ana
 
 ---
 
+# Table of Contents
+
+* Project Overview
+* System Architecture
+* Comparison of Three Data Management Architectures
+* Dataset
+* Technologies Used
+* Project Workflow
+* Dashboard Features
+* Required R Packages
+* Running the Dashboard
+* R Script Description
+* Project Screenshots
+* Repository Structure
+* Future Improvements
+* Conclusion
+* Author
+
+---
+
+
 # Project Overview
 
 The dashboard provides:
@@ -24,9 +45,11 @@ The dashboard provides:
 * Cancellation risk prediction
 * Interactive data exploration
 
-The project also demonstrates three different approaches for processing and accessing data.
+
+This project demonstrates three different data management architectures for integrating Apache Hive with an R Shiny dashboard. Each architecture represents a different strategy for data processing, storage, and data access, illustrating the evolution from simple data export to an optimized data warehouse design.
 
 ---
+
 
 # System Architecture
 
@@ -54,11 +77,11 @@ Export Cleaned Dataset via WinSCP
 
 R Shiny Dashboard
 
-This approach uses Hive as a data warehouse and exports the processed dataset for visualization.
+This approach performs data cleaning in Hive and exports the cleaned dataset as a CSV file. The dashboard then reads the local CSV file for visualization.
 
 ---
 
-## Approach 2: Hive + ODBC + R Dashboard (Final Architecture)
+## Approach 2: Hive + ODBC + Single Hive Table + R Dashboard
 
 Raw CSV Dataset
 
@@ -72,7 +95,11 @@ Apache Hive
 
 ↓
 
-Hive Query Processing
+Hive Data Cleaning
+
+↓
+
+Cleaned Hive Table (`bookings_clean`)
 
 ↓
 
@@ -82,9 +109,72 @@ ODBC Connection
 
 R Shiny Dashboard
 
-This architecture enables direct communication between Hive and R without manual export.
+This approach establishes a direct ODBC connection between Hive and R. The dashboard retrieves the entire cleaned Hive table (`bookings_clean`) and performs filtering, aggregation, and visualization within R.
 
 ---
+
+## Approach 3: Hive + ODBC + Multiple Hive Analytical Tables + R Dashboard (Final Optimized Data Warehouse Architecture)
+
+Raw CSV Dataset
+
+↓
+
+HDFS
+
+↓
+
+Apache Hive
+
+↓
+
+Hive Data Cleaning
+
+↓
+
+Generate Multiple Analytical Hive Tables
+
+↓
+
+ODBC Connection
+
+↓
+
+R Shiny Dashboard
+
+This approach extends the Hive workflow by generating multiple analytical tables (KPI, booking trends, revenue, payment methods, cancellation analysis, customer ratings, etc.). Each dashboard component retrieves only the required Hive table, reducing unnecessary data transfer and demonstrating a data warehouse architecture.
+
+---
+
+
+# Comparison of Three Data Management Architectures
+
+This project implements three different approaches for integrating Apache Hive with an R Shiny dashboard. Although all three approaches generate the same dashboard visualizations, they differ significantly in the way data is processed and accessed.
+
+| Feature               | Approach 1           | Approach 2               | Approach 3 (Final Architecture)             |
+| --------------------- | -------------------- | ------------------------ | ------------------------------------------- |
+| Hive Output           | One cleaned table    | One cleaned table        | Multiple analytical tables                  |
+| Data Access           | Export CSV from Hive | Direct ODBC connection   | Direct ODBC connection                      |
+| R Processing          | Reads exported CSV   | Reads entire Hive table  | Reads only required Hive tables             |
+| Hive Processing       | Data cleaning        | Data cleaning            | Data cleaning + analytical table generation |
+| Number of Hive Tables | 1                    | 1                        | 10+                                         |
+| Data Transfer         | Manual export        | Entire table transferred | Only required data retrieved                |
+| Query Efficiency      | Moderate             | Moderate                 | High                                        |
+| Scalability           | Small datasets       | Medium datasets          | Enterprise-scale analytics                  |
+
+### Approach 1 – Hive + Export + R
+
+The dataset is cleaned in Apache Hive and stored as a single cleaned table (`bookings_clean`). The cleaned data is exported from HDFS as a CSV file using WinSCP, and R Shiny reads the local CSV file to generate all dashboard visualizations. This approach demonstrates the traditional workflow of exporting processed data before analysis.
+
+### Approach 2 – Hive + ODBC + R
+
+Instead of exporting a CSV file, R Shiny establishes a direct ODBC connection with Apache Hive and retrieves the entire cleaned table (`bookings_clean`). All filtering, aggregation, and visualization logic are performed within R. This approach eliminates manual file export while maintaining a simple database structure.
+
+### Approach 3 – Hive Data Warehouse + ODBC + R (Final Implementation)
+
+The cleaned dataset is further transformed into multiple analytical Hive tables, each designed for a specific dashboard component, such as KPI metrics, booking trends, payment distribution, revenue analysis, cancellation statistics, customer ratings, and detailed records. R Shiny retrieves only the required Hive table through ODBC, significantly reducing unnecessary data transfer and computation. This architecture follows data warehouse principles and represents the final optimized implementation of the project.
+
+---
+
 
 # Dataset
 
@@ -92,9 +182,10 @@ The ride-booking dataset used in this project is based on publicly available dat
 
 Dataset Source
 
-The dataset is sourced from the following open data repository:
+### Dataset Source
 
-Chicago Taxi Trips Dataset
+The dataset is obtained from the **Chicago Taxi Trips Dataset**, available through the City of Chicago Data Portal.
+
 https://data.cityofchicago.org/Transportation/Taxi-Trips/wrvz-psew
 
 This dataset contains detailed records of taxi trips in Chicago, including trip duration, trip distance, fare amount, payment type, pickup and drop-off locations, and timestamps. It is widely used for transportation analytics, demand forecasting, and urban mobility research.
@@ -116,6 +207,7 @@ The ride-booking dataset contains information such as:
 * Cancellation Status
 
 ---
+
 
 # Technologies Used
 
@@ -151,11 +243,38 @@ The ride-booking dataset contains information such as:
 
 ---
 
+
+# Development Environment
+
+The project was developed and tested using the following software environment.
+
+| Component        | Version                        |
+| ---------------- | ------------------------------ |
+| Operating System | Windows 10                     |
+| Apache Hadoop    | Hadoop Sandbox (HDP)           |
+| Apache Hive      | Hive 2.x                       |
+| HDFS             | Hadoop Distributed File System |
+| Apache Ambari    | HDP Ambari                     |
+| WinSCP           | Latest Version                 |
+| R                | 4.x                            |
+| RStudio          | Latest Version                 |
+| R Shiny          | Latest Version                 |
+| Hive ODBC Driver | Apache Hive ODBC Driver        |
+
+The project is recommended to be executed in the above environment to ensure compatibility between Hive, ODBC, and R Shiny.
+
+---
+
+
 # Project Workflow
+
+The project follows a complete data management workflow from raw data ingestion to dashboard visualization. Three different implementation approaches were developed to demonstrate alternative strategies for integrating Apache Hive with R Shiny.
+
+---
 
 ## Step 1: Upload Dataset to HDFS
 
-Example:
+Create a project directory in HDFS and upload the raw booking dataset.
 
 ```bash
 hdfs dfs -mkdir /ride_final
@@ -163,7 +282,7 @@ hdfs dfs -mkdir /ride_final
 hdfs dfs -put Bookings.csv /ride_final
 ```
 
-Verify upload:
+Verify the uploaded dataset:
 
 ```bash
 hdfs dfs -ls /ride_final
@@ -173,7 +292,7 @@ hdfs dfs -ls /ride_final
 
 ## Step 2: Create Hive Table
 
-Example:
+Create the raw Hive table for storing the booking dataset.
 
 ```sql
 CREATE TABLE bookings (
@@ -197,12 +316,14 @@ FIELDS TERMINATED BY ',';
 
 ## Step 3: Load Data into Hive
 
+Load the dataset from HDFS into the Hive table.
+
 ```sql
 LOAD DATA INPATH '/ride_final/Bookings.csv'
 INTO TABLE bookings;
 ```
 
-Verify:
+Verify the imported records:
 
 ```sql
 SELECT *
@@ -212,39 +333,45 @@ LIMIT 10;
 
 ---
 
-## Step 4: Data Cleaning
+## Step 4: Data Cleaning and Transformation
 
-Data preprocessing included:
+The raw dataset is cleaned and transformed in Apache Hive before being used for dashboard development.
 
-* Missing value handling
-* Date conversion
-* Cancellation indicator creation
-* Revenue categorization
-* Data type conversion
+The preprocessing includes:
+
+- Missing value handling
+- Data type conversion
+- Date and time formatting
+- Cancellation indicator creation
+- Revenue categorization
+- Duplicate removal
 
 Example:
 
-```r
-df$Date <- as.POSIXct(df$Date)
-
-df$Is_Cancelled <- ifelse(
-  df$Booking_Status == "Cancelled",
-  1,
-  0
-)
+```sql
+CREATE TABLE bookings_clean AS
+SELECT ...
+FROM bookings;
 ```
 
 ---
 
-## Step 5: Export Hive Data (Approach 1)
 
-Hive output was exported through WinSCP:
+# Implementation Approaches
+
+After the cleaned Hive dataset is generated, three different implementation approaches are demonstrated.
+
+---
+
+## Approach 1 – Hive → CSV Export → R Shiny
+
+The cleaned Hive table is exported from HDFS using WinSCP.
 
 ```text
 Bookings_Cleaned_Hive.csv
 ```
 
-and loaded into R:
+The exported CSV file is then loaded into R.
 
 ```r
 df <- read.csv(
@@ -253,18 +380,27 @@ df <- read.csv(
 )
 ```
 
+**Characteristics**
+
+- Hive performs data cleaning
+- Data exported as CSV
+- Dashboard reads local CSV
+- Simple and suitable for learning Hive workflows
+
 ---
 
-## Step 6: Connect Hive Directly Using ODBC (Approach 2)
+## Approach 2 – Hive → ODBC → Single Hive Table → R Shiny
 
-Install package:
+Instead of exporting a CSV file, R connects directly to Apache Hive through ODBC and retrieves the cleaned Hive table.
+
+Install required packages:
 
 ```r
 install.packages("odbc")
 install.packages("DBI")
 ```
 
-Connection example:
+Create the connection:
 
 ```r
 library(DBI)
@@ -278,16 +414,62 @@ con <- dbConnect(
 )
 ```
 
-Read Hive table:
+Read the cleaned Hive table:
 
 ```r
 df <- dbReadTable(
   con,
-  "bookings"
+  "bookings_clean"
 )
 ```
 
+**Characteristics**
+
+- Direct Hive connection
+- Reads one cleaned Hive table
+- All filtering and aggregation performed in R
+- Stable implementation and recommended for demonstration
+
 ---
+
+## Approach 3 – Hive → Multiple Analytical Tables → ODBC → R Shiny
+
+Instead of reading one large table, Apache Hive generates multiple analytical tables during the data warehousing stage.
+
+Examples include:
+
+- KPI table
+- Booking trend table
+- Revenue analysis table
+- Payment distribution table
+- Cancellation analysis table
+- Rating analysis table
+- Vehicle distribution table
+- Customer statistics table
+- Detailed booking table
+- Other analytical summary tables
+
+Each dashboard component retrieves only the corresponding Hive table through ODBC.
+
+```r
+kpi <- dbReadTable(con, "kpi_summary")
+
+booking_trend <- dbReadTable(con, "booking_trend")
+
+payment <- dbReadTable(con, "payment_distribution")
+```
+
+**Characteristics**
+
+- Data preprocessing completed in Hive
+- Multiple analytical Hive tables
+- Dashboard retrieves only required tables
+- Reduced data transfer
+- Demonstrates an enterprise-style data warehouse architecture
+- May occasionally experience Hive ODBC string/schema compatibility issues depending on the execution environment
+
+---
+
 
 # Dashboard Features
 
@@ -380,6 +562,8 @@ Users can input custom values and obtain cancellation risk estimates.
 ## Payment Method Distribution
 ![Task 11](screenshots/R_screenshot5.png)
 
+---
+
 
 # Required R Packages
 
@@ -417,24 +601,55 @@ library(odbc)
 
 ---
 
+
 # Running the Dashboard
 
-Open RStudio and run:
+Two R implementations are provided in this repository.
+
+## Recommended Version
+
+Run
 
 ```r
-shinyApp(
-  ui = ui,
-  server = server
-)
+Data_management_final_connect_hive_one_table_stable.R
 ```
 
-or
+Characteristics:
+
+* Connects directly to Apache Hive through ODBC
+* Reads one cleaned Hive table (`bookings_clean`)
+* Performs filtering, aggregation, and visualization in R
+* More stable during execution
+* Recommended for demonstration and presentation
+
+---
+
+## Alternative Version
+
+Run
+
+```r
+Data_management_final_connect_hive_ten_tables_clear.R
+```
+
+Characteristics:
+
+* Connects directly to multiple analytical Hive tables
+* Reads only the required analytical tables
+* Demonstrates a modular Hive data warehouse architecture
+* Reduces unnecessary data transfer between Hive and R
+* May occasionally experience Hive ODBC string or schema compatibility issues depending on the execution environment
+
+---
+
+After opening either R script in RStudio, click **Run App** or execute:
 
 ```r
 runApp()
 ```
 
 ---
+
 
 # Project Screenshots
 
@@ -480,6 +695,41 @@ runApp()
 
 ---
 
+
+# R Script Description
+
+Two R implementations are included in this repository for comparison purposes.
+
+### Data_management_final_connect_hive_one_table_stable.R
+
+This implementation connects to Apache Hive through ODBC and retrieves a single cleaned Hive table (`bookings_clean`). All filtering, aggregation, and visualization are performed within R.
+
+**Characteristics**
+
+* Reads one Hive table
+* Data processing performed in R
+* More stable during execution
+* Recommended implementation for demonstration and presentation
+
+---
+
+### Data_management_final_connect_hive_ten_tables_clear.R
+
+This implementation connects directly to multiple analytical Hive tables generated during the Hive data warehousing process. Each dashboard component retrieves only its corresponding Hive table.
+
+**Characteristics**
+
+* Reads multiple Hive analytical tables
+* Most preprocessing completed in Hive
+* Demonstrates a data warehouse architecture
+* More efficient in theory because only the required data is retrieved
+* May occasionally experience string or schema compatibility issues during ODBC communication, depending on the Hive driver and environment configuration
+
+This implementation is included to demonstrate an optimized enterprise-style data management architecture and to compare different data access strategies.
+
+---
+
+
 # Repository Structure
 
 ```text
@@ -487,40 +737,109 @@ Ride-Booking-Analytics/
 │
 ├── data/
 │   ├── Bookings.csv
+│   │   Original ride booking dataset
+│   │
 │   └── Bookings_Cleaned_Hive.csv
+│       Cleaned dataset exported from Apache Hive
+│       (Used in Approach 1)
 │
 ├── screenshots/
-│   ├── dashboard.png
-│   ├── hdfs_upload.png
-│   ├── hive_table.png
-│   ├── hive_query.png
-│   ├── winscp_export.png
-│   └── odbc_connection.png
+│   ├── homepage.png
+│   ├── summary.png
+│   ├── booking.png
+│   ├── revenue.png
+│   ├── payment.png
+│   ├── cancellation.png
+│   ├── rating.png
+│   ├── adjustment.png
+│   ├── risk.png
+│   ├── explorer.png
+│   ├── R_screenshot4.png
+│   ├── R_screenshot5.png
+│   ├── hdfs.png
+│   ├── hive_table_create.png
+│   ├── hive_result.png
+│   ├── winSCP.png
+│   ├── ODBC.png
+│   └── cancellation_model.png
 │
-├── app.R
+├── hive_commands/
+│   ├── Hive_Command.pdf
+│   └── Hive_Data_Cleaning_Command.pdf
+│
+├── reports/
+│   └── Report.pdf
+│
+├── Data_management_final_connect_hive_one_table_stable.R
+│
+│   Recommended implementation
+│
+│   • Connects directly to Apache Hive through ODBC
+│   • Reads one cleaned Hive table (bookings_clean)
+│   • Performs filtering, aggregation, and visualization in R
+│   • More stable and recommended for presentation
+│
+├── Data_management_final_connect_hive_ten_tables_clear.R
+│
+│   Alternative implementation
+│
+│   • Connects directly to multiple analytical Hive tables
+│   • Demonstrates Hive data warehouse architecture
+│   • Retrieves only required analytical tables
+│   • Reduces unnecessary data transfer
+│   • May occasionally experience Hive ODBC
+│     string/schema compatibility issues
+│     depending on the execution environment
+│
 ├── README.md
-└── Report.pdf
+│   Project documentation
+│
+└── LICENSE (Optional)
 ```
 
 ---
 
+
+# Future Improvements
+
+Although the current system successfully demonstrates three different data management architectures, several enhancements could be implemented in future work.
+
+* Deploy the dashboard to Shiny Server for web-based access.
+* Replace manual ETL with an automated workflow using Apache Airflow.
+* Integrate Apache Spark SQL for distributed query processing.
+* Support real-time ride booking analytics using Apache Kafka.
+* Optimize Hive partitioning and indexing for large-scale datasets.
+* Extend the predictive analytics module with additional machine learning models such as Random Forest and XGBoost.
+* Improve ODBC stability when accessing multiple analytical Hive tables simultaneously.
+* Develop role-based dashboards for managers, analysts, and administrators.
+
+---
+
+
 # Conclusion
 
-This project demonstrates a complete Data Management and Analytics pipeline using Hadoop, Hive, and R Shiny.
+This project demonstrates a complete data management and business analytics pipeline using Apache Hadoop, HDFS, Apache Hive, and R Shiny.
 
-Two different architectures were implemented:
+Three different implementation architectures were developed and evaluated:
 
-1. Hive + WinSCP + R
-2. Hive + ODBC + R
+1. **Hive → CSV Export → R Shiny**
+2. **Hive → ODBC → R Shiny**
+3. **Hive Analytical Tables → ODBC → R Shiny (Final Architecture)**
 
-The final solution successfully integrates data warehousing, data processing, dashboard visualization, and predictive analytics into a single platform.
+The final architecture adopts a data warehouse design by creating multiple analytical Hive tables that correspond to different dashboard components. Instead of transferring an entire cleaned dataset, the dashboard retrieves only the required analytical tables, improving query efficiency, reducing unnecessary data processing in R, and providing a more scalable solution for business intelligence applications.
+
+This progression demonstrates the evolution from basic data export, to direct database connectivity, and finally to an optimized enterprise-style analytical architecture.
+
+Among the three implementations, the single-table ODBC approach is recommended for practical demonstration because it provides a more stable execution environment. Nevertheless, the multiple analytical-table architecture more closely reflects real-world enterprise data warehouse design, where pre-computed analytical tables improve query efficiency, reduce unnecessary data transfer, and simplify downstream business intelligence applications.
 
 ---
 
 ## Author
 
-REN SHINENG
+**REN SHINENG**
 
 STQD6324 Data Management
 
-Semester 2 2025/2026
+Universiti Kebangsaan Malaysia (UKM)
+
+Semester 2, Academic Session 2025/2026
