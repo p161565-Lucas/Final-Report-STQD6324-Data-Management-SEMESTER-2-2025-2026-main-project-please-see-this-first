@@ -372,6 +372,15 @@ Users can input custom values and obtain cancellation risk estimates.
 
 ---
 
+## Vehicle Type Distribution
+![Task 10](screenshots/R_screenshot4.png)
+
+---
+
+## Payment Method Distribution
+![Task 11](screenshots/R_screenshot5.png)
+
+
 # Required R Packages
 
 Install required packages:
@@ -431,43 +440,43 @@ runApp()
 
 ## Dashboard Homepage
 
-![Task 10](screenshots/homepage.png)
+![Task 12](screenshots/homepage.png)
 
 ---
 
 ## HDFS Upload
 
-![Task 11](screenshots/hdfs.png)
+![Task 13](screenshots/hdfs.png)
 
 ---
 
 ## Hive Table Creation
 
-![Task 12](screenshots/hive_table_create.png)
+![Task 14](screenshots/hive_table_create.png)
 
 ---
 
 ## Hive Query Result
 
-![Task 13](screenshots/hive_result.png)
+![Task 15](screenshots/hive_result.png)
 
 ---
 
 ## WinSCP Export
 
-![Task 14](screenshots/winSCP.png)
+![Task 16](screenshots/winSCP.png)
 
 ---
 
 ## ODBC Connection
 
-![Task 15](screenshots/ODBC.png)
+![Task 17](screenshots/ODBC.png)
 
 ---
 
 ## Cancellation Model
 
-![Task 16](screenshots/cancellation_model.png)
+![Task 18](screenshots/cancellation_model.png)
 
 ---
 
