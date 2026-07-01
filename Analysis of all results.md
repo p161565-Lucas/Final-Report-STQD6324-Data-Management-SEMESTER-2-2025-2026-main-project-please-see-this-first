@@ -29,11 +29,7 @@ This finding suggests that overall business revenue depends on both pricing stra
 
 ![Insert Figure 4](screenshots/R_booings_by_pick_up_location.png)
 
-The Booking Status analysis categorises bookings into successful rides, customer cancellations, driver cancellations, and driver-not-found cases. Successful bookings represent the largest proportion of all transactions, demonstrating that the platform is capable of completing most customer requests successfully.
-
-However, cancellations remain an important operational challenge. Driver cancellations and customer cancellations reduce revenue while negatively affecting customer satisfaction. Meanwhile, bookings classified as "Driver Not Found" indicate temporary shortages of available drivers in certain locations or time periods.
-
-Reducing these unsuccessful bookings should be considered a priority for improving both operational efficiency and overall customer experience.
+The distribution of bookings across pickup locations is relatively balanced, with only slight variations in booking volume. Areas such as Banashankari, Yeshwanthpur, and RT Nagar record the highest number of pickups, while Rajajinagar, Chamarajpet, and Jayanagar have slightly lower totals. Overall, the chart indicates that ride demand is well distributed across different regions, suggesting broad service coverage without significant geographical concentration.
 
 ## 5. Payment Method Analysis
 
