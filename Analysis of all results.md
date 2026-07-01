@@ -3,68 +3,56 @@
 
 ![Insert Figure 1](screenshots/summary.png)
 
-The KPI dashboard provides an overall summary of the ride-booking platform after data cleaning and integration. It presents key operational indicators such as total bookings, completed rides, cancelled bookings, total revenue, average booking value, and average ride distance. These indicators allow managers to quickly evaluate the current operational performance without examining individual booking records.
-
-The dashboard shows that the platform successfully handled a large number of ride requests, while completed bookings accounted for the majority of transactions. Although cancellations still exist, the overall operational performance remains stable. These KPIs provide a solid foundation for monitoring business performance and identifying areas requiring further operational improvement.
+The KPI dashboard summarises the cleaned dataset of 103,024 bookings: 63,967 completed rides (62.1%) and 39,057 non-completed bookings (37.9%), generating total revenue of INR 35,080,467 at an average booking value of INR 548.42 and an average completed-ride distance of 22.85 km. Completed bookings make up the clear majority of transactions, but the nearly 38% non-completion rate is high enough that it deserves ongoing monitoring rather than being treated as background noise.
 
 ## 2. Booking Trend Analysis
 
 ![Insert Figure 2](screenshots/booking.png)
 
-The Booking Trend chart illustrates how booking demand changes over time. Instead of remaining constant, booking volume fluctuates throughout the observation period, indicating that customer demand varies according to different time periods.
-
-Several noticeable peaks can be observed, suggesting periods of higher transportation demand. Such demand fluctuations may be associated with commuting hours, weekends, public holidays, or promotional activities. During these peak periods, additional drivers should be allocated to reduce passenger waiting time and improve service availability.
-
-Conversely, lower booking periods provide opportunities for optimising driver scheduling and reducing unnecessary operational costs. Continuous monitoring of booking trends enables management to balance customer demand with available transportation resources more efficiently.
+The booking trend covers a single continuous month, 1–31 July 2024, and is remarkably flat: daily volume ranges only from 3,072 to 3,432 bookings (mean 3,323, ~2% coefficient of variation), with no strong weekday/weekend pattern. This is unlike typical real-world ride-hailing demand, which usually shows pronounced peaks, so driver-scheduling decisions should not be based on an assumption of strong day-to-day demand swings in this dataset.
 
 ## 3. Revenue by Vehicle Type Analysis
 
-![Insert Figure 3](screenshots/revenue.png)
+![Insert Figure 3](screenshots/R_revenue_by_vehicle.png)
 
-The Revenue by Vehicle Type chart compares the financial contribution of different vehicle categories. Premium vehicle services generally contribute higher revenue per completed booking because of their higher fare structure, whereas economy vehicles contribute through a larger booking volume.
+Revenue is spread almost evenly across all seven vehicle types (INR 4.88M–5.22M each, under a 7% spread), so no single category dominates total income. The one notable exception is Auto: it earns an average fare (INR 551) statistically identical to every other vehicle type despite covering less than half the distance (10.0 km vs. ~25 km for the rest) — a meaningfully higher fare per kilometre worth investigating before basing any pricing strategy on the assumption that fare scales with distance (the overall correlation between distance and booking value is only 0.002).
 
-This finding suggests that overall business revenue depends on both pricing strategy and customer demand. Maintaining a balanced vehicle portfolio allows the platform to serve different customer segments while maximising profitability. Promotional campaigns encouraging customers to upgrade to premium vehicle categories may further increase average booking value without substantially increasing operating costs.
-
-## 4. Booking Status Analysis
+## 4. Pickup Location Analysis
 
 ![Insert Figure 4](screenshots/R_booings_by_pick_up_location.png)
 
 The distribution of bookings across pickup locations is relatively balanced, with only slight variations in booking volume. Areas such as **Banashankari**, **Yeshwanthpur**, and **RT Nagar** record the highest number of pickups, while **Rajajinagar**, **Chamarajpet**, and **Jayanagar** have slightly lower totals. Overall, the chart indicates that ride demand is well distributed across different regions, suggesting broad service coverage without significant geographical concentration.
 
-## 5. Payment Method Analysis
+## 5. Customer Analysis
 
-![Insert Figure 5](screenshots/payment.png)
+![Insert Figure 5](screenshots/R_cumtomer_by_booking_count.png)
 
-The payment method distribution provides insights into customer payment preferences. The dashboard indicates that customers actively use both traditional cash payments and digital payment methods such as UPI and credit cards.
+The dataset contains 94,544 unique customer IDs across 103,024 bookings — an average of only 1.09 bookings per customer — and even the single most frequent customer (CID954071) made just 5 bookings, with the rest of the top 10 at 4 bookings each. In other words, there is no meaningful repeat-customer or "power user" segment in this data; nearly every booking comes from a different customer, so loyalty-program or repeat-usage strategies would need to be validated against real-world booking history rather than this dataset.
 
-The increasing adoption of electronic payments benefits both customers and the platform by providing faster transactions, reducing cash-handling risks, and improving financial record management. Future promotional campaigns targeting digital payment users could further improve operational efficiency and customer convenience.
+## 6. Payment Method Analysis
 
-## 6. Customer and Driver Rating Analysis
+![Insert Figure 6](screenshots/payment.png)
 
-![Insert Figure 6](screenshots/rating.png)
+Among completed rides, cash remains the leading payment method at 54.8%, followed by UPI at 40.5%; credit card (3.8%) and debit card (1.0%) are minor. Combined digital payment methods (UPI + cards) account for 45.2% of completed transactions, so the clearest opportunity for growing digital payments is converting cash users to UPI specifically, rather than promoting card payments.
 
-Customer and driver ratings provide an important measure of service quality. The dashboard indicates that most completed rides receive relatively high ratings, reflecting generally positive customer experiences.
+## 7. Customer and Driver Rating Analysis
 
-Nevertheless, a small proportion of lower ratings suggests that service quality can still be improved. Possible contributing factors include waiting time, driver professionalism, vehicle condition, and communication quality. Continuous monitoring of rating trends allows management to identify underperforming drivers and implement appropriate training programmes to maintain service standards.
+![Insert Figure 7](screenshots/rating.png)
 
-## 7. Cancellation Reason Analysis
+Both driver ratings and customer ratings average 4.0 out of 5 (SD 0.58), with only about 2.5% of completed rides rated 3 or below. However, both fields take just three discrete values — 3, 4, and 5, with nothing lower — which is more consistent with a simulated rating field than with organically collected review data, so "high customer satisfaction" here should be read as a property of this dataset rather than a real-world service-quality claim.
 
-![Insert Figure 7](screenshots/cancellation.png)
+## 8. Cancellation Reason Analysis
 
-The cancellation reason analysis identifies the major factors contributing to unsuccessful bookings. Customer cancellations are commonly associated with changes in travel plans, incorrect addresses, or service-related issues, whereas driver cancellations frequently result from personal reasons, vehicle problems, or customer-related concerns.
+![Insert Figure 8](screenshots/cancellation.png)
 
-Understanding these cancellation patterns enables management to implement targeted improvement strategies. For example, improving driver assignment algorithms, providing clearer pickup instructions, and enhancing communication between drivers and customers may effectively reduce cancellation frequency.
+Of all non-completed bookings, driver-initiated cancellations are the largest group (17.9% of all bookings), followed by "Driver Not Found" (9.8%) and customer-initiated cancellations (10.2%) — meaning driver- and supply-side issues (27.7% combined) are roughly three times more common than customer-side cancellations. The leading stated driver reasons are "Personal & Car related issue" and "Customer related issue," while the leading customer reason is "Driver is not moving towards pickup location," so improvement efforts should focus primarily on driver dispatch and availability rather than customer-facing cancellation prompts.
 
-## 8. Logistic Regression Prediction Analysis
+## 9. Logistic Regression Prediction Analysis
 
-![Insert Figure 8](screenshots/Cancellation_risk_prediction1.png)
+![Insert Figure 9](screenshots/Cancellation_risk_prediction1.png)
 
-The Logistic Regression model extends the dashboard from descriptive analytics to predictive analytics by estimating the likelihood of booking cancellation. Instead of only analysing historical data, the model provides early identification of potentially high-risk bookings.
+Re-evaluating this model surfaced a data-leakage issue: Ride_Distance is recorded as exactly 0 for every non-completed booking, so a model that includes it reports a misleadingly perfect 100% accuracy (AUC 1.00) by effectively reading the outcome off one of its own inputs rather than predicting it in advance. Once Ride_Distance is removed and the model is limited to information genuinely available before a trip (Booking_Value, Vehicle_Type), accuracy drops to 62.1% and AUC to 0.51 — no better than guessing the majority class — showing that, as currently specified, this model cannot actually flag at-risk bookings ahead of time; a real early-warning system would need new features such as historical cancellation rates by customer or pickup location.
 
-This predictive capability enables platform operators to intervene before cancellations occur by reallocating drivers, sending booking confirmations, or offering customer incentives. As a result, the prediction model enhances operational decision-making and demonstrates the practical value of integrating machine learning into ride-booking management systems.
+## 10. Overall Business Insights
 
-Although Logistic Regression provides good interpretability, future research could evaluate more advanced machine learning algorithms to further improve prediction accuracy.
-
-## 9. Overall Business Insights
-
-The dashboard demonstrates that the cleaned dataset can be transformed into meaningful business intelligence through interactive visualisation and predictive analytics. The analysis highlights several important operational characteristics of the ride-booking platform. Firstly, booking demand varies over time, requiring flexible driver allocation strategies. Secondly, different vehicle categories contribute differently to total revenue, indicating opportunities to optimise pricing and fleet management. Thirdly, while customer satisfaction is generally high based on rating distributions, booking cancellations continue to represent a major operational challenge. Finally, the integration of predictive analytics provides valuable decision support by enabling management to identify potential risks before bookings are completed.
+This dataset shows a platform with stable, low-variance daily demand, revenue spread evenly across vehicle types except for a distinctly higher fare-per-km on Auto rides, an almost entirely one-time customer base with no repeat-usage segment, and a 37.9% non-completion rate driven mainly by driver/supply-side issues rather than customers. Ratings are high but built on a discretised (3/4/5-only) scale, and the existing cancellation-risk model's apparent accuracy comes from a data leak rather than genuine predictive signal — once corrected, it offers no real lift over guessing. Together, these point to two priorities: (1) treat cancellation as primarily a dispatch/driver-availability problem, not a customer or vehicle-type problem, and (2) any future predictive-analytics work needs new, genuinely pre-trip features before it can deliver real operational value.
