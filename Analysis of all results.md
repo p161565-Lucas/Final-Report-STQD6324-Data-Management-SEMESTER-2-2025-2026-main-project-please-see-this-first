@@ -2,7 +2,6 @@
 ## 1. Dataset Overview
 After the data cleaning process, the ride booking dataset became suitable for business analysis and visualization. Invalid records, inconsistent values, and missing information were handled to improve data quality and ensure reliable analytical results. The cleaned dataset contains over 100,000 ride booking records, providing sufficient data for identifying operational patterns and customer behaviour.
 The dataset includes important business attributes such as booking status, vehicle type, booking value, ride distance, payment method, customer and driver ratings, and cancellation reasons. These variables allow the dashboard to provide a comprehensive overview of ride booking operations and support data-driven decision making.
-(Insert Figure 1: Dashboard Overview / KPI Dashboard)
 ![Insert Figure 1](screenshots/summary.png)
 
 
@@ -10,7 +9,6 @@ The dataset includes important business attributes such as booking status, vehic
 The dashboard shows that the majority of bookings were completed successfully, while a considerable proportion were cancelled either by customers or drivers. Although successful bookings contribute most of the platform revenue, cancellations remain an important operational issue that directly affects customer satisfaction and business performance.
 Different cancellation reasons were recorded for customers and drivers. Customer cancellations were mainly associated with changes in travel plans, incorrect pickup information, or service-related issues, while driver cancellations were often related to personal reasons, customer-related problems, or operational constraints. These findings indicate that reducing cancellation rates should remain one of the primary objectives for improving service quality.
 Booking records also demonstrate that ride demand fluctuates throughout the day. Such information can assist the company in allocating drivers more efficiently during high-demand periods while reducing idle resources during quieter periods.
-(Insert Figure 2: Booking Status / Booking Trend)
 ![Insert Figure 2](screenshots/booking.png)
 
 
