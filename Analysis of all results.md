@@ -29,7 +29,7 @@ This finding suggests that overall business revenue depends on both pricing stra
 
 ![Insert Figure 4](screenshots/R_booings_by_pick_up_location.png)
 
-The distribution of bookings across pickup locations is relatively balanced, with only slight variations in booking volume. Areas such as Banashankari, Yeshwanthpur, and RT Nagar record the highest number of pickups, while Rajajinagar, Chamarajpet, and Jayanagar have slightly lower totals. Overall, the chart indicates that ride demand is well distributed across different regions, suggesting broad service coverage without significant geographical concentration.
+The distribution of bookings across pickup locations is relatively balanced, with only slight variations in booking volume. Areas such as **Banashankari**, **Yeshwanthpur**, and **RT Nagar** record the highest number of pickups, while **Rajajinagar**, **Chamarajpet**, and **Jayanagar** have slightly lower totals. Overall, the chart indicates that ride demand is well distributed across different regions, suggesting broad service coverage without significant geographical concentration.
 
 ## 5. Payment Method Analysis
 
