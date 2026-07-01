@@ -1,32 +1,74 @@
-# Results Analysis and Business Insights
-## 1. Dataset Overview
-After the data cleaning process, the ride booking dataset became suitable for business analysis and visualization. Invalid records, inconsistent values, and missing information were handled to improve data quality and ensure reliable analytical results. The cleaned dataset contains over 100,000 ride booking records, providing sufficient data for identifying operational patterns and customer behaviour.
-The dataset includes important business attributes such as booking status, vehicle type, booking value, ride distance, payment method, customer and driver ratings, and cancellation reasons. These variables allow the dashboard to provide a comprehensive overview of ride booking operations and support data-driven decision making.
+# Dashboard Results Analysis
+## 1. Overall KPI Dashboard
+
 ![Insert Figure 1](screenshots/summary.png)
 
+The KPI dashboard provides an overall summary of the ride-booking platform after data cleaning and integration. It presents key operational indicators such as total bookings, completed rides, cancelled bookings, total revenue, average booking value, and average ride distance. These indicators allow managers to quickly evaluate the current operational performance without examining individual booking records.
 
-## 2. Booking and Operational Analysis
-The dashboard shows that the majority of bookings were completed successfully, while a considerable proportion were cancelled either by customers or drivers. Although successful bookings contribute most of the platform revenue, cancellations remain an important operational issue that directly affects customer satisfaction and business performance.
-Different cancellation reasons were recorded for customers and drivers. Customer cancellations were mainly associated with changes in travel plans, incorrect pickup information, or service-related issues, while driver cancellations were often related to personal reasons, customer-related problems, or operational constraints. These findings indicate that reducing cancellation rates should remain one of the primary objectives for improving service quality.
-Booking records also demonstrate that ride demand fluctuates throughout the day. Such information can assist the company in allocating drivers more efficiently during high-demand periods while reducing idle resources during quieter periods.
+The dashboard shows that the platform successfully handled a large number of ride requests, while completed bookings accounted for the majority of transactions. Although cancellations still exist, the overall operational performance remains stable. These KPIs provide a solid foundation for monitoring business performance and identifying areas requiring further operational improvement.
+
+## 2. Booking Trend Analysis
+
 ![Insert Figure 2](screenshots/booking.png)
 
+The Booking Trend chart illustrates how booking demand changes over time. Instead of remaining constant, booking volume fluctuates throughout the observation period, indicating that customer demand varies according to different time periods.
 
-## 3. Revenue and Customer Behaviour Analysis
-The dashboard provides valuable insights into customer spending behaviour and service preferences. Different vehicle categories contribute differently to the overall business revenue. Premium vehicle services generally generate higher booking values, while economy vehicles contribute through a larger number of completed rides. Maintaining a balanced vehicle fleet therefore helps maximise both customer coverage and business profitability.
-The payment method analysis indicates that customers increasingly prefer cashless transactions such as UPI, credit cards, and digital payments. Electronic payment methods improve transaction efficiency and reduce cash-handling risks, making them beneficial for both customers and service providers.
-Customer and driver rating distributions also indicate that most completed rides receive relatively high ratings, suggesting that overall service quality is satisfactory. Nevertheless, a small number of lower-rated trips highlight opportunities for further improvement through driver training, customer support, and service monitoring.
+Several noticeable peaks can be observed, suggesting periods of higher transportation demand. Such demand fluctuations may be associated with commuting hours, weekends, public holidays, or promotional activities. During these peak periods, additional drivers should be allocated to reduce passenger waiting time and improve service availability.
+
+Conversely, lower booking periods provide opportunities for optimising driver scheduling and reducing unnecessary operational costs. Continuous monitoring of booking trends enables management to balance customer demand with available transportation resources more efficiently.
+
+## 3. Revenue by Vehicle Type Analysis
+
 ![Insert Figure 3](screenshots/revenue.png)
-![Insert Figure 4](screenshots/payment.png)
-![Insert Figure 5](screenshots/rating.png)
 
-## 4. Predictive Model Analysis
-The Logistic Regression model was developed to predict the probability of booking cancellation based on operational variables contained in the dataset. Instead of only analysing historical records, the model provides a practical decision-support tool by identifying bookings that are more likely to be cancelled before the trip is completed.
-Although the model does not eliminate cancellations, it enables platform operators to take preventive actions such as assigning alternative drivers, improving customer communication, or providing promotional incentives for high-risk bookings. This demonstrates how predictive analytics can support more proactive operational management rather than relying solely on historical reporting.
-![Insert Figure 6](screenshots/risk.png)
+The Revenue by Vehicle Type chart compares the financial contribution of different vehicle categories. Premium vehicle services generally contribute higher revenue per completed booking because of their higher fare structure, whereas economy vehicles contribute through a larger booking volume.
 
+This finding suggests that overall business revenue depends on both pricing strategy and customer demand. Maintaining a balanced vehicle portfolio allows the platform to serve different customer segments while maximising profitability. Promotional campaigns encouraging customers to upgrade to premium vehicle categories may further increase average booking value without substantially increasing operating costs.
 
-## 5. Overall Findings
-Overall, the cleaned dataset provides meaningful business insights into ride booking operations. The dashboard successfully transforms raw booking records into understandable visual information, allowing managers to monitor booking performance, revenue generation, payment preferences, customer satisfaction, and cancellation behaviour.
-The results indicate that while the platform performs well in terms of completed bookings and customer ratings, reducing booking cancellations remains an important opportunity for improvement. Furthermore, integrating predictive analytics with interactive dashboards enhances business decision-making by enabling management to identify operational risks earlier and respond more effectively.
-The project demonstrates that combining data cleaning, Apache Hive, R Shiny, and predictive analytics creates a practical business intelligence solution capable of supporting both operational monitoring and strategic decision-making.
+## 4. Booking Status Analysis
+
+![Insert Figure 4](screenshots/R_bookings_by_pick_up_location.png)
+
+The Booking Status analysis categorises bookings into successful rides, customer cancellations, driver cancellations, and driver-not-found cases. Successful bookings represent the largest proportion of all transactions, demonstrating that the platform is capable of completing most customer requests successfully.
+
+However, cancellations remain an important operational challenge. Driver cancellations and customer cancellations reduce revenue while negatively affecting customer satisfaction. Meanwhile, bookings classified as "Driver Not Found" indicate temporary shortages of available drivers in certain locations or time periods.
+
+Reducing these unsuccessful bookings should be considered a priority for improving both operational efficiency and overall customer experience.
+
+## 5. Payment Method Analysis
+
+![Insert Figure 5](screenshots/payment.png)
+
+The payment method distribution provides insights into customer payment preferences. The dashboard indicates that customers actively use both traditional cash payments and digital payment methods such as UPI and credit cards.
+
+The increasing adoption of electronic payments benefits both customers and the platform by providing faster transactions, reducing cash-handling risks, and improving financial record management. Future promotional campaigns targeting digital payment users could further improve operational efficiency and customer convenience.
+
+## 6. Customer and Driver Rating Analysis
+
+![Insert Figure 6](screenshots/rating.png)
+
+Customer and driver ratings provide an important measure of service quality. The dashboard indicates that most completed rides receive relatively high ratings, reflecting generally positive customer experiences.
+
+Nevertheless, a small proportion of lower ratings suggests that service quality can still be improved. Possible contributing factors include waiting time, driver professionalism, vehicle condition, and communication quality. Continuous monitoring of rating trends allows management to identify underperforming drivers and implement appropriate training programmes to maintain service standards.
+
+## 7. Cancellation Reason Analysis
+
+![Insert Figure 7](screenshots/cancellation.png)
+
+The cancellation reason analysis identifies the major factors contributing to unsuccessful bookings. Customer cancellations are commonly associated with changes in travel plans, incorrect addresses, or service-related issues, whereas driver cancellations frequently result from personal reasons, vehicle problems, or customer-related concerns.
+
+Understanding these cancellation patterns enables management to implement targeted improvement strategies. For example, improving driver assignment algorithms, providing clearer pickup instructions, and enhancing communication between drivers and customers may effectively reduce cancellation frequency.
+
+8. Logistic Regression Prediction Analysis
+
+![Insert Figure 8](screenshots/Cancellation_risk_prediction1.png)
+
+The Logistic Regression model extends the dashboard from descriptive analytics to predictive analytics by estimating the likelihood of booking cancellation. Instead of only analysing historical data, the model provides early identification of potentially high-risk bookings.
+
+This predictive capability enables platform operators to intervene before cancellations occur by reallocating drivers, sending booking confirmations, or offering customer incentives. As a result, the prediction model enhances operational decision-making and demonstrates the practical value of integrating machine learning into ride-booking management systems.
+
+Although Logistic Regression provides good interpretability, future research could evaluate more advanced machine learning algorithms to further improve prediction accuracy.
+
+9. Overall Business Insights
+
+The dashboard demonstrates that the cleaned dataset can be transformed into meaningful business intelligence through interactive visualisation and predictive analytics. The analysis highlights several important operational characteristics of the ride-booking platform. Firstly, booking demand varies over time, requiring flexible driver allocation strategies. Secondly, different vehicle categories contribute differently to total revenue, indicating opportunities to optimise pricing and fleet management. Thirdly, while customer satisfaction is generally high based on rating distributions, booking cancellations continue to represent a major operational challenge. Finally, the integration of predictive analytics provides valuable decision support by enabling management to identify potential risks before bookings are completed.
